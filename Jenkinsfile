@@ -77,7 +77,7 @@ pipeline{
                 sh 'mkdir -p gitOpsRepo'
                 dir("gitOpsRepo")
                 {
-                    git branch: "master",
+                    git branch: "main",
                     credentialsId: githubCredential,
                     url: 'https://github.com/dongjucloud/kube-manifest.git' 
                     sh "git config --global user.email dongju08@naver.com"
