@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: k8s
+  name: k8s
+spec:
+  type: LoadBalancer
+  selector:
+    app: k8s
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: k8s
+  name: k8s
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8s
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: k8s
+    spec:
+      containers:
+      - name: k8s
+        image: {dockerhub}/k8s:{jenkins build number}
+        ports:
+          - containerPort: 8080
