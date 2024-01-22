@@ -4,7 +4,7 @@ pipeline{
     environment {
         dockerHubRegistry = 'dongjukim123/ci-cd'
         dockerHubRegistryCredential = 'docker-hub'
-        githubCredential = 'kdj-8596-cred1'
+        githubCredential = 'github'
     }
 
     stages {
