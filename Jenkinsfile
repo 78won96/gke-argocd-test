@@ -84,7 +84,7 @@ pipeline{
                     sh "git config --global user.name dongjucloud"
                     sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
-                    sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
+                    sh 'git commit -m "[UPDATE] k8s ${currentBuild.number} image versioning"'
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
                         sh "git remote set-url origin https://github.com/dongjucloud/kube-manifest"
