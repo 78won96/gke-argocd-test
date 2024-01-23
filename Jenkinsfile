@@ -82,7 +82,7 @@ pipeline{
                     url: 'https://github.com/dongjucloud/kube-manifests.git' 
                     sh "git config --global user.email dongju08@naver.com"
                     sh "git config --global user.name dongjucloud"
-                    sh "sed -i 's/ci-cd:.*\$/docker:${currentBuild.number}/' deployment.yaml"
+                    sh "sed -i 's/docker:.*\$/docker:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                     
