@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     environment {
-        dockerHubRegistry = 'dongjukim123/ci-cd'
+        dockerHubRegistry = 'dongjukim123/docker'
         dockerHubRegistryCredential = 'docker-hub'
         githubCredential = 'github'
     }
