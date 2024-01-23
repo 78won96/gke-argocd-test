@@ -6,7 +6,7 @@ pipeline{
         dockerHubRegistryCredential = 'docker-hub'
         githubCredential = 'github'
     }
-sdfs
+
     stages {
         stage('check out application git branch'){
             steps {
