@@ -87,7 +87,7 @@ pipeline{
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin https://github.com/dongjucloud/kube-manifest.git"
+                        sh "git remote set-url origin https://github.com/dongjucloud/kube-manifest"
                         sh "git push -u origin main"
                     }
                 }
