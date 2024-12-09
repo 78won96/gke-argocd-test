@@ -94,6 +94,7 @@ spec:
             }
         }
         stage('Prisma Cloud scan') { // See 6
+            steps {
             twistlockscan {   
                     prismaCloudScanImage ca: '',
                     cert: '',
@@ -109,10 +110,13 @@ spec:
                 }
         }
 
-        stage('Prisma Cloud publish') { // Prisma Scanning Result
+        stage('Prisma Cloud publish') 
+            steps {       
+        { // Prisma Scanning Result
         prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
         }
-
+            }
+            
         stage('Docker Image Push') {
             steps {
                 container('docker') {
