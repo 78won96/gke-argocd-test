@@ -93,6 +93,28 @@ spec:
                 }
             }
         }
+        stage ('Prisma Cloud scan') { // See 6
+            try {   
+                    prismaCloudScanImage ca: '',
+                    cert: '',
+                    containerized:true,
+                    image: 'asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest',
+                    dockerAddress: 'unix:///var/run/docker.sock',
+                    project: '',
+                    ignoreImageBuildTime: true,
+                    key: '',
+                    logLevel: 'info',
+                    podmanPath: '',
+                    resultsFile: 'prisma-cloud-scan-results.json'
+                }  catch (all) {
+                    currentBuild.result = 'FAILURE'
+                    }
+        }
+
+        stage('Prisma Cloud publish') { // Prisma Scanning Result
+        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+        }
+
         stage('Docker Image Push') {
             steps {
                 container('docker') {
@@ -111,6 +133,7 @@ spec:
                 }
             }
         }
+
         stage('K8S Manifest Update') {
             steps {
                 dir('gitOpsRepo') {
