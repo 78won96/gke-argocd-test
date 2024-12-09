@@ -120,7 +120,7 @@ spec:
                     sh "git config --global user.email 'juwon.lee@u-infra.com'"
                     sh "git config --global user.name 'juwon.lee'"
                     sh "sed -i 's/dockerdocker-argocd:.*\$/docker-argocd:${currentBuild.number}/' deployment.yaml"
-                    sh "git add deployment.yaml"
+                    sh "git add ."
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
 
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential, gitToolName: 'default')]) {
