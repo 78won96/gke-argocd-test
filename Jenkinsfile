@@ -97,7 +97,7 @@ spec:
             steps {
                 script{
                     prismacloudscan (   
-                    prismaCloudScanImage ca: '',
+                    ca: '',
                     cert: '',
                     containerized:true,
                     image: '${dockerHubRegistry}:${currentBuild.number}',
@@ -105,7 +105,7 @@ spec:
                     project: '',
                     ignoreImageBuildTime: true,
                     key: '',
-                    logLevel: 'info',
+                    logLevel: 'debug',
                     podmanPath: '',
                     resultsFile: 'prisma-cloud-scan-results.json' 
                     )
