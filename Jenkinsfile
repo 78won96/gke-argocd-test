@@ -96,7 +96,7 @@ spec:
         stage('Docker Image Push') {
             steps {
                 container('docker') {
-                    withDockerRegistry([credentialsId: dockerHubRegistryCredential, url: "registry.hub.docker.com"]) {
+                    withDockerRegistry([credentialsId: dockerHubRegistryCredential, url: ""]) {
                         sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
                         sh "docker push ${dockerHubRegistry}:latest"
                     }
