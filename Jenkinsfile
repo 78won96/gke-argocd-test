@@ -108,6 +108,7 @@ spec:
                     podmanPath: '',
                     resultsFile: 'prisma-cloud-scan-results.json'
                 }
+            }    
         }
 
         stage('Docker Image Push') {
