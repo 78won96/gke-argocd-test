@@ -116,7 +116,7 @@ spec:
                 dir('gitOpsRepo') {
                     git branch: 'main',
                         credentialsId: githubCredential,
-                        url: 'https://github.com/78won96/manifests.git'
+                        url: 'https://github.com/78won96/argocd-manifests.git'
                     sh "git config --global user.email 'juwon.lee@u-infra.com'"
                     sh "git config --global user.name 'juwon.lee'"
                     sh "sed -i 's/docker:.*\$/docker:${currentBuild.number}/' deployment.yaml"
