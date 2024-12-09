@@ -119,7 +119,7 @@ spec:
                         url: 'https://github.com/78won96/argocd-manifests.git'
                     sh "git config --global user.email 'juwon.lee@u-infra.com'"
                     sh "git config --global user.name 'juwon.lee'"
-                    sh "sed -i 's/dockerdocker-argocd:.*\$/docker-argocd:${currentBuild.number}/' deployment.yaml"
+                    sh "sed -i 's/docker-argocd:.*\$/docker-argocd:${currentBuild.number}/' deployment.yaml"
                     sh "git add ."
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
 
