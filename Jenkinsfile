@@ -112,11 +112,13 @@ spec:
 
         stage('Prisma Cloud publish') 
             steps {       
-        { // Prisma Scanning Result
-        prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
-        }
+            twistlockresult {    
+            { // Prisma Scanning Result
+            prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+                }
             }
-            
+            }
+
         stage('Docker Image Push') {
             steps {
                 container('docker') {
