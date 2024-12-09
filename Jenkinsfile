@@ -110,15 +110,6 @@ spec:
                 }
         }
 
-        stage('Prisma Cloud publish') // Prisma Scanning Result
-            steps {       
-            twistlockresult {    
-                { 
-                prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
-                }
-            }
-            }
-
         stage('Docker Image Push') {
             steps {
                 container('docker') {
