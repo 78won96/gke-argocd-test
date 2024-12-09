@@ -113,8 +113,8 @@ spec:
         stage('Prisma Cloud publish') // Prisma Scanning Result
             steps {       
             twistlockresult {    
-            { 
-            prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+                { 
+                prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
                 }
             }
             }
