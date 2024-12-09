@@ -93,19 +93,19 @@ spec:
                 }
             }
         }
-        stage('Prisma Cloud') { // See 6
+        stage('Prisma Cloud Image Scan') { // See 6
             steps {
                 script{
                     prismaCloudScanImage (   
                     ca: '',
                     cert: '',
                     containerized:true,
-                    image: '${dockerHubRegistry}:${currentBuild.number}',
+                    image: "${dockerHubRegistry}:${currentBuild.number}",
                     dockerAddress: 'unix:///var/run/docker.sock',
                     project: '',
                     ignoreImageBuildTime: true,
                     key: '',
-                    logLevel: 'debug',
+                    logLevel: 'info',
                     podmanPath: '',
                     resultsFile: 'prisma-cloud-scan-results.json' 
                     )
