@@ -95,7 +95,8 @@ spec:
         }
         stage('Prisma Cloud') { // See 6
             steps {
-            prismaCloudScanImage{   
+                script{
+                    prismacloudscan (   
                     prismaCloudScanImage ca: '',
                     cert: '',
                     containerized:true,
@@ -106,7 +107,7 @@ spec:
                     key: '',
                     logLevel: 'info',
                     podmanPath: '',
-                    resultsFile: 'prisma-cloud-scan-results.json'
+                    resultsFile: 'prisma-cloud-scan-results.json' )
                 }
             }    
         }
