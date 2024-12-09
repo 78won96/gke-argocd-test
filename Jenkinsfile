@@ -96,7 +96,7 @@ spec:
         stage('Prisma Cloud') { // See 6
             steps {
                 script{
-                    prismacloudscan (   
+                    prismaCloudScanImage (   
                     ca: '',
                     cert: '',
                     containerized:true,
