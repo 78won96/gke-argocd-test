@@ -123,7 +123,7 @@ spec:
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
 
-                    withCredentials([gitUsernamePassword(credentialsId: githubCredential, gitToolName: 'git-tool')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: githubCredential, gitToolName: 'default')]) {
                         sh "git remote add origin https://github.com/78won96/argocd-manifests.git"
                         sh "git push -u origin main"
                     }
