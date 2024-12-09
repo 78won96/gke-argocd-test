@@ -122,8 +122,9 @@ spec:
                     sh "sed -i 's/docker:.*\$/docker:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
+
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential, gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin https://github.com/78won96/argocd-manifests.git"
+                        sh "git remote add origin https://github.com/78won96/argocd-manifests.git"
                         sh "git push -u origin main"
                     }
                 }
