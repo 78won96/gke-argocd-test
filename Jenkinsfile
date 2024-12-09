@@ -93,12 +93,12 @@ spec:
                 }
             }
         }
-        stage ('Prisma Cloud scan') { // See 6
-            try {   
+        stage('Prisma Cloud scan') { // See 6
+            twistlockscan {   
                     prismaCloudScanImage ca: '',
                     cert: '',
                     containerized:true,
-                    image: 'asia-northeast3-docker.pkg.dev/flash-physics-368407/gcp-project-ljw/cloudbuild-test:latest',
+                    image: '${dockerHubRegistry}:${currentBuild.number}',
                     dockerAddress: 'unix:///var/run/docker.sock',
                     project: '',
                     ignoreImageBuildTime: true,
