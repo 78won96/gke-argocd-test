@@ -106,9 +106,7 @@ spec:
                     logLevel: 'info',
                     podmanPath: '',
                     resultsFile: 'prisma-cloud-scan-results.json'
-                }  catch (all) {
-                    currentBuild.result = 'FAILURE'
-                    }
+                }
         }
 
         stage('Prisma Cloud publish') { // Prisma Scanning Result
