@@ -1,45 +1,6 @@
 pipeline {
-    agent {
-        kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    jenkins/label: "jenkins-agent"
-spec:
-  securityContext:
-    runAsUser: 0
-    runAsGroup: 0
-  containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-    args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-    volumeMounts:
-    - mountPath: /home/jenkins/agent
-      name: workspace-volume
-      readOnly: false
-  - name: docker
-    image: docker:20.10.21
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-    - mountPath: /home/jenkins/agent
-      name: workspace-volume
-      readOnly: false
-  volumes:
-  - emptyDir: {}
-    name: workspace-volume
-  - hostPath:
-      path: /var/run/docker.sock
-    name: docker-sock
-"""
-        }
-    }
-
+    agent any
+    
     environment {
         dockerHubRegistry = '78won96/docker-argocd'
         dockerHubRegistryCredential = 'Docker'
