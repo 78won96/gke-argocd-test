@@ -1,3 +1,4 @@
+
 FROM openjdk:11-jdk AS builder
 COPY gradlew .
 COPY gradle gradle

@@ -2,8 +2,8 @@ pipeline{
     agent any
 
     environment {
-        dockerHubRegistry = 'dongjukim123/docker'
-        dockerHubRegistryCredential = 'docker-hub'
+        dockerHubRegistry = '78won96/docker-argocd'
+        dockerHubRegistryCredential = 'Docker'
         githubCredential = 'github'
     }
 
