@@ -79,16 +79,16 @@ pipeline{
                 {
                     git branch: "main",
                     credentialsId: githubCredential,
-                    url: 'https://github.com/dongjucloud/kube-manifests.git' 
-                    sh "git config --global user.email dongju08@naver.com"
-                    sh "git config --global user.name dongjucloud"
+                    url: 'https://github.com/78won96/gke-argocd-test.git' 
+                    sh "git config --global user.email juwon.lee@-infra.com"
+                    sh "git config --global user.name juwon.lee"
                     sh "sed -i 's/docker:.*\$/docker:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                     
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin https://github.com/dongjucloud/kube-manifests"
+                        sh "git remote set-url origin https://github.com/78won96/argocd-manifests.git"
                         sh "git push -u origin main"
                     }
                 }
