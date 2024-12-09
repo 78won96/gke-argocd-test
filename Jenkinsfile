@@ -93,9 +93,9 @@ spec:
                 }
             }
         }
-        stage('Prisma Cloud scan') { // See 6
+        stage('Prisma Cloud') { // See 6
             steps {
-            twistlockscan {   
+            {   
                     prismaCloudScanImage ca: '',
                     cert: '',
                     containerized:true,
