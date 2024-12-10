@@ -31,6 +31,7 @@ podTemplate(label: 'test-scan', containers: [
     stages {
         stage('Check out application git branch') {
             steps {
+                container('gcloud')
                 git branch: 'main',
                     url: 'https://github.com/78won96/gke-argocd-test.git',
                     credentialsId: githubCredential
@@ -46,6 +47,7 @@ podTemplate(label: 'test-scan', containers: [
         }
         stage('Build gradle') {
             steps {
+                container('gcloud')
                 sh 'chmod +x ./gradlew || true'  // 루트 권한이 이미 주어졌으므로 오류 방지
                 sh './gradlew build'
                 sh 'ls -al ./build'
@@ -61,7 +63,7 @@ podTemplate(label: 'test-scan', containers: [
         }
         stage('Docker image build') {
             steps {
-                container('docker') {
+                container('gcloud') {
                     sh "docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
                     sh "docker build . -t ${dockerHubRegistry}:latest"
                 }
@@ -97,7 +99,7 @@ podTemplate(label: 'test-scan', containers: [
 
         stage('Docker Image Push') {
             steps {
-                container('docker') {
+                container('gcloud') {
                     withDockerRegistry([credentialsId: dockerHubRegistryCredential, url: ""]) {
                         sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
                         sh "docker push ${dockerHubRegistry}:latest"
