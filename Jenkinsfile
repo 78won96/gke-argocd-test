@@ -16,7 +16,12 @@ podTemplate(label: label, containers: [
 
 ) 
 {
-    node(label) {
+  pipeline {
+        agent {
+            node {
+                label 'Pod-temp-ljw'
+            }
+        }
 
     environment {
         dockerHubRegistry = '78won96/docker-argocd'
