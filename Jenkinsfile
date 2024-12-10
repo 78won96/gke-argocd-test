@@ -1,6 +1,4 @@
-label = "Pod-temp-ljw"
-
-podTemplate(label: label, containers: [
+podTemplate(label: 'Pod-temp', containers: [
 
     containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
 
