@@ -1,15 +1,21 @@
-pipeline {
-    agent {
-        kubernetes {
-            label 'test-scan'  // 파드 레이블
-            defaultContainer 'gcloud'  // 기본 컨테이너 설정
-            containerTemplate(name: 'gcloud', image: 'google/cloud-sdk:alpine', ttyEnabled: true, alwaysPullImage: true)
-            volumes: [
-                hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock") // Docker 소켓 공유
-            ]
-        }
-    }
+label = "Pod-temp-ljw"
 
+podTemplate(label: label, containers: [
+
+    containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
+
+    containerTemplate(name: "ubuntu", image: "ubuntu", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
+
+],
+
+    volumes: [
+
+        hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
+
+    ],
+
+) 
+{
  
 
     environment {
