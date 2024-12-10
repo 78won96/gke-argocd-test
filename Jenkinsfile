@@ -100,7 +100,7 @@ spec:
                     ca: '',
                     cert: '',
                     containerized:true,
-                    image: "${dockerHubRegistry}:${currentBuild.number}",
+                    image: "${dockerHubRegistry}:${currentBuild.number}", 
                     dockerAddress: 'unix:///var/run/docker.sock',
                     project: '',
                     ignoreImageBuildTime: true,
