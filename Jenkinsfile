@@ -1,4 +1,4 @@
-podTemplate(label: 'Pod-temp', containers: [
+podTemplate(label: 'test-scan', containers: [
 
     containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
 
@@ -18,7 +18,7 @@ podTemplate(label: 'Pod-temp', containers: [
   pipeline {
         agent {
             node {
-                label 'Pod-temp-ljw'
+                label 'test-scan'
             }
         }
 
