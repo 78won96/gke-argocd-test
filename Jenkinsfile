@@ -16,7 +16,7 @@ podTemplate(label: label, containers: [
 
 ) 
 {
- 
+    node(label) {
 
     environment {
         dockerHubRegistry = '78won96/docker-argocd'
@@ -138,4 +138,5 @@ podTemplate(label: label, containers: [
             }
         }
     }
+}
 }
