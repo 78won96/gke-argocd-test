@@ -1,26 +1,44 @@
-podTemplate(label: 'test-scan', containers: [
-
-    containerTemplate(name: "gcloud", image: "google/cloud-sdk:alpine", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
-
-    containerTemplate(name: "ubuntu", image: "ubuntu", command: "cat", ttyEnabled: true, alwaysPullImage: true, resourceRequestCpu: '10m'),
-
-],
-
-    volumes: [
-
-        hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock"),
-
-    ]
-
-)
-
-{
-  pipeline {
-        agent {
-            node {
-                label 'test-scan'
-            }
+pipeline {
+    agent {
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins/label: "jenkins-agent"
+spec:
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+  containers:
+  - name: jnlp
+    image: jenkins/inbound-agent:latest
+    args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+      readOnly: false
+  - name: docker
+    image: docker:20.10.21
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+      readOnly: false
+  volumes:
+  - emptyDir: {}
+    name: workspace-volume
+  - hostPath:
+      path: /var/run/docker.sock
+    name: docker-sock
+"""
         }
+    }
 
     environment {
         dockerHubRegistry = '78won96/docker-argocd'
@@ -31,7 +49,6 @@ podTemplate(label: 'test-scan', containers: [
     stages {
         stage('Check out application git branch') {
             steps {
-                container('gcloud')
                 git branch: 'main',
                     url: 'https://github.com/78won96/gke-argocd-test.git',
                     credentialsId: githubCredential
@@ -47,7 +64,6 @@ podTemplate(label: 'test-scan', containers: [
         }
         stage('Build gradle') {
             steps {
-                container('gcloud')
                 sh 'chmod +x ./gradlew || true'  // 루트 권한이 이미 주어졌으므로 오류 방지
                 sh './gradlew build'
                 sh 'ls -al ./build'
@@ -63,7 +79,7 @@ podTemplate(label: 'test-scan', containers: [
         }
         stage('Docker image build') {
             steps {
-                container('gcloud') {
+                container('docker') {
                     sh "docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
                     sh "docker build . -t ${dockerHubRegistry}:latest"
                 }
@@ -99,7 +115,7 @@ podTemplate(label: 'test-scan', containers: [
 
         stage('Docker Image Push') {
             steps {
-                container('gcloud') {
+                container('docker') {
                     withDockerRegistry([credentialsId: dockerHubRegistryCredential, url: ""]) {
                         sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
                         sh "docker push ${dockerHubRegistry}:latest"
@@ -144,5 +160,4 @@ podTemplate(label: 'test-scan', containers: [
             }
         }
     }
-}
 }
