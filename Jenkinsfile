@@ -1,44 +1,16 @@
 pipeline {
     agent {
         kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    jenkins/label: "jenkins-agent"
-spec:
-  securityContext:
-    runAsUser: 0
-    runAsGroup: 0
-  containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-    args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-    volumeMounts:
-    - mountPath: /home/jenkins/agent
-      name: workspace-volume
-      readOnly: false
-  - name: docker
-    image: docker:20.10.21
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-    - mountPath: /home/jenkins/agent
-      name: workspace-volume
-      readOnly: false
-  volumes:
-  - emptyDir: {}
-    name: workspace-volume
-  - hostPath:
-      path: /var/run/docker.sock
-    name: docker-sock
-"""
+            label 'test-scan'  // 파드 레이블
+            defaultContainer 'gcloud'  // 기본 컨테이너 설정
+            containerTemplate(name: 'gcloud', image: 'google/cloud-sdk:alpine', ttyEnabled: true, alwaysPullImage: true)
+            volumes: [
+                hostPathVolume(mountPath: "/var/run/docker.sock", hostPath: "/var/run/docker.sock") // Docker 소켓 공유
+            ]
         }
     }
+
+ 
 
     environment {
         dockerHubRegistry = '78won96/docker-argocd'
