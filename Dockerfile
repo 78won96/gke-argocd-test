@@ -8,7 +8,7 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
-FROM openjdk:12-slim
+FROM openjdk:11.2-slim
 
 
 COPY --from=builder build/libs/*.jar springboot-sample-app.jar
