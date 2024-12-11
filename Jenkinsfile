@@ -97,7 +97,7 @@ spec:
             steps {
                 script{
                     prismaCloudScanImage (   
-                    prismaCloudScanImage ca: '',
+                    ca: '',
                     cert: '',
                     containerized:true,
                     image: "${dockerHubRegistry}:${currentBuild.number}", 
