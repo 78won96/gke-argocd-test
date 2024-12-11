@@ -97,7 +97,7 @@ spec:
             steps {
                 script{
                     prismaCloudScanImage (   
-                    ca: '',
+                    prismaCloudScanImage ca: '',
                     cert: '',
                     containerized:true,
                     image: "${dockerHubRegistry}:${currentBuild.number}", 
@@ -111,6 +111,11 @@ spec:
                     )
                 }
             }    
+        }
+        stage ('Prisma Cloud publish') { // Prisma Scanning Result
+            steps {
+            prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+            }
         }
 
         stage('Docker Image Push') {
