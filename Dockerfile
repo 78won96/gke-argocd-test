@@ -7,6 +7,8 @@ COPY settings.gradle .
 COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
+RUN useradd -u 1001 customuser
+USER customuser
 
 FROM openjdk:11.0.11-jre-slim
 
