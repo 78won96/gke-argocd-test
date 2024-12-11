@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../manifests"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

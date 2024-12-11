@@ -7,6 +7,7 @@
 
 
 
+
 💆 CI/CD 체계 구축 개요
 1. GCP GKE에 Jenkins 설치 
 2. Github에 Jenkinsfile 생성 (단계별 코드 통합 과정 진행) -> Jenkins-Pipeline구축 -> 새로운 이미지 생성 및 태깅 -> Dockerhub Push -> 별도의 manifest repo안 deployment.yaml을 새로운 이미지 태그로 업데이트 -> github
