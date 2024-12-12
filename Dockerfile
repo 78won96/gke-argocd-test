@@ -9,7 +9,7 @@ RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
 
-FROM openjdk:11.0.11-jre-slim
+FROM openjdk:11-slim
 
 
 COPY --from=builder build/libs/*.jar springboot-sample-app.jar
